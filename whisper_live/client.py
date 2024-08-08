@@ -57,6 +57,7 @@ class Client:
         self.use_vad = use_vad
         self.last_segment = None
         self.last_received_segment = None
+        self.inter_segment = None
 
         if translate:
             self.task = "translate"
@@ -166,6 +167,7 @@ class Client:
             return
 
         if "segments" in message.keys():
+            self.inter_segment = message["segments"]
             self.process_segments(message["segments"])
 
     def on_error(self, ws, error):
